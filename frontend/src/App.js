@@ -9,12 +9,6 @@ function App() {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    if (token) {
-      verifyToken();
-    }
-  }, [token]);
-
   const verifyToken = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/verify', {
@@ -27,6 +21,13 @@ function App() {
       handleLogout();
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      verifyToken();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const handleLogin = (newToken, userData) => {
     setToken(newToken);

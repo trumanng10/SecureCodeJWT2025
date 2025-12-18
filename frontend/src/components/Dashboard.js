@@ -10,10 +10,6 @@ function Dashboard({ token, user, onLogout, onTokenRefresh }) {
   const [copied, setCopied] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
-  useEffect(() => {
-    decodeToken();
-  }, [token]);
-
   const decodeToken = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/decode-token', {
@@ -24,6 +20,11 @@ function Dashboard({ token, user, onLogout, onTokenRefresh }) {
       console.error('Failed to decode token:', error);
     }
   };
+
+  useEffect(() => {
+    decodeToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const fetchProtectedData = async () => {
     try {
